@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>bitcoin</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
+
+</head>
+<body>
+
+    <form method="get" action="http://127.0.0.1:8082">
+        <input type="date" id="startDate" name="startDate" th:value="${startDate}">
+        <input type="date" id="endDate" name="endDate" th:value="${endDate}" >
+        <input type="submit" value="Render">
+    </form>
+    <input type="hidden" id="jsonData" name="jsonData" th:value="${jsonData}">
+
+    <div id="container" style="border:1px solid #ccc;
+                           width:550px;height:370px;padding:5px">
+        <canvas id="chart"
+                width="540" height="360"></canvas>
+    </div>
+    <script>
+
+        window.onload = function() {
+            var ctx = document.getElementById("chart");
+        //    var barChartData = JSON.parse(document.getElementById("jsonData").value);
+
+         //   window.line = new Chart(ctx, barChartData);
+            var speedData = JSON.parse(document.getElementById("jsonData").value);
+
+            var chartOptions = {
+                legend: {
+                    display: true,
+                    position: 'top',
+                    labels: {
+                        boxWidth: 80,
+                        fontColor: 'black'
+                    }
+                }
+            };
+            var lineChart = new Chart(ctx, {
+                type: 'line',
+                data: speedData,
+                options: chartOptions
+            });
+        };
+    </script>
+
+
+</body>
+</html>
